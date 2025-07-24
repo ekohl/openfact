@@ -21,6 +21,8 @@ module Facter
 
           def read_cpuinfo(fact_name)
             lscpu_output = Facter::Core::Execution.execute("lscpu | grep #{ITEMS.values.join(' ')}", logger: log)
+            return unless lscpu_output
+
             build_fact_list(lscpu_output.split("\n"))
             @fact_list[fact_name]
           end
